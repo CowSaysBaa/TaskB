@@ -23,11 +23,11 @@ exports.new = function (req, res) {
     var turtle = new Turtle();
     turtle.species = req.body.species;
     turtle.location = req.body.location;
-// save the turtle and check for errors
+    // save the turtle and check for errors
     turtle.save(function (err) {
         // if (err)
         //     res.json(err);
-res.json({
+        res.json({
             message: 'New turtle created!',
             data: turtle
         });
@@ -46,12 +46,12 @@ exports.view = function (req, res) {
 };
 // Handle update turtle info
 exports.update = function (req, res) {
-Turtle.findById(req.params.turtle_id, function (err, turtle) {
+    Turtle.findById(req.params.turtle_id, function (err, turtle) {
         if (err)
             res.send(err);
         turtle.species = req.body.species;
         turtle.location = req.body.location;
-// save the turtle and check for errors
+        // save the turtle and check for errors
         turtle.save(function (err) {
             if (err)
                 res.json(err);
@@ -69,7 +69,7 @@ exports.delete = function (req, res) {
     }, function (err, turtle) {
         if (err)
             res.send(err);
-res.json({
+        res.json({
             status: "success",
             message: 'turtle deleted'
         });
