@@ -14,9 +14,14 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
+const MONGODB_URI  = 'mongodb+srv://user:1234@cluster0.rkuir.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority';
+
 // Connect to Mongoose and set connection variable
-mongoose.connect('mongodb://localhost/taskb', { useNewUrlParser: true});
+mongoose.connect(MONGODB_URI || 'mongodb://localhost/taskb', { useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
+
+mongoose.connection.on('connected', () => {console.log("Mongoose is connected.");});
 
 // Added check for DB connection
 if(!db)
