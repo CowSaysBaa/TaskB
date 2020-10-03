@@ -4,7 +4,7 @@
   "description": "An app demonstrating simple Restful API implementation",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --timeout 15000 --exit"
   },
   "keywords": [
     "api",
