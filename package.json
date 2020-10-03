@@ -4,7 +4,7 @@
   "description": "An app demonstrating simple Restful API implementation",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha"
   },
   "keywords": [
     "api",
