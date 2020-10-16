@@ -30,7 +30,7 @@ else
 var port = 3000; // for some reason, adding process.env.PORT || will crash firebase functions
 
 // Send message for default URL
-app.get('/', (req, res) => res.send('Hi, this is TaskB'));
+app.get('/', (req, res) => res.send('Hi, this is TaskB from Firebase functions'));
 
 // Use Api routes in the App
 app.use('/api', apiRoutes);
