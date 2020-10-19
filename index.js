@@ -34,7 +34,7 @@ else
     console.log("Db connected successfully")
 
 // Setup server port
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 4040;
 
 // Send message for default URL
 app.get('/', (req, res) => res.send('Hi, this is TaskB'));
