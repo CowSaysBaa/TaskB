@@ -4,7 +4,7 @@
       <table class="ui celled table">
         <thead>
           <tr>
-            <th style="width: 50px; text-align: centre">#</th>
+            <th style="width: 50px; text-align: centre">ID</th>
             <th>Species</th>
             <th>Location</th>
             <th style="width: 148px">Action</th>
@@ -12,7 +12,13 @@
         </thead>
 
         <tbody>
-          <Turtle v-for="turtle in turtles" :key="turtle.id" :turtle="turtle" />
+          <Turtle
+            v-for="turtle in turtles"
+            :key="turtle._id"
+            :turtle="turtle"
+            @onDelete="onDelete"
+            @onEdit="onEdit"
+          />
         </tbody>
       </table>
     </div>
@@ -30,6 +36,16 @@ export default {
   props: {
     turtles: {
       type: Array,
+    },
+  },
+  methods: {
+    onDelete(id) {
+      //window.console.log("turtle list delete", id)
+      this.$emit("onDelete", id);
+    },
+    onEdit(data) {
+      //window.console.log("turtle list edit", data)
+      this.$emit("onEdit", data);
     },
   },
 };

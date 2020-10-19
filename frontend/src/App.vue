@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <div class="ui fixed inverted menu vue-color">
+    <div class="header">
       <div class="ui containter">
-        <a href="#" class="header item">A LINK</a>
+        <h1>Task B4</h1>
       </div>
     </div>
 
     <div class="ui main container">
-      <Form />
-      <TurtleList :turtles="turtles" />
+      <Form :form="form" @onFormSubmit="onFormSubmit" />
+      <TurtleList :turtles="turtles" @onDelete="onDelete" @onEdit="onEdit" />
     </div>
   </div>
 </template>
@@ -28,14 +28,67 @@ export default {
     return {
       url: "https://taskb-turtle-database.herokuapp.com/api/turtles",
       turtles: [],
+      form: { species: "", location: "", isEdit: false },
     };
   },
   methods: {
     getTurtles() {
-      axios.get(this.url, {	headers: {'Access-Control-Allow-Origin': '*'}}).then((data) => {
-        this.turtles = data.data;
-        console.log(data)
+      axios.get(this.url).then((data) => {
+        this.turtles = data.data.data;
       });
+    },
+    deleteTurtle(id) {
+      axios
+        .delete(`${this.url}/${id}`)
+        .then(() => {
+          this.getTurtles();
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+    createTurtle(data) {
+      axios
+        .post(this.url, {
+          species: data.species,
+          location: data.location,
+        })
+        .then(() => {
+          this.getTurtles();
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+    editTurtle(data) {
+      axios
+        .put(`${this.url}/${data._id}`, {
+          species: data.species,
+          location: data.location,
+        })
+        .then(() => {
+          this.getTurtles();
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    },
+    onDelete(id) {
+      //window.console.log("app delete", id);
+      this.deleteTurtle(id);
+    },
+    onEdit(data) {
+      //window.console.log("add edit", data);
+      this.form = data;
+      this.form.isEdit = true;
+    },
+    onFormSubmit(data) {
+      // window.console.log("app onFormSubmit", data)
+      if (data.isEdit) {
+        this.editTurtle(data);
+      } else {
+        this.createTurtle(data);
+      }
     },
   },
   created() {
@@ -45,16 +98,12 @@ export default {
 </script>
 
 <style>
-.vue-color {
-  background: blue;
-}
-
 .main.container {
   margin-top: 60px;
 }
 
-.submit-button {
-  margin-top: 24px;
-  float: right;
+.header {
+  margin-top: 30px;
+  text-align: center;
 }
 </style>
