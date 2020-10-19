@@ -7,6 +7,8 @@ let mongoose = require('mongoose');
 // Initialise the app
 let app = express();
 
+let cors = require('cors')
+
 // Import routes
 let apiRoutes = require("./api-routes");
 // Configure bodyparser to handle post requests
@@ -14,6 +16,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
+app.use(cors())
 
 const MONGODB_URI = 'mongodb+srv://user:1234@cluster0.rkuir.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority';
 
